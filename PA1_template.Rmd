@@ -8,7 +8,7 @@ First of all, we make all our code chunks visible with **opts_chunk$set(echo=TRU
 
 ##1. Loading and preprocessing the data
 
-1.1. Read the .csv file.Transform the variable *date* into Date R object.
+1.1. Read the .csv file and transform the variable *date* into Date R object.
 ```{r read_file}
 data <- read.delim("activity.csv", sep=",", dec=",", header=TRUE)
 ``` 
@@ -52,7 +52,9 @@ As we can see, the average number of total steps per day in the two-month period
 ##3. What is the average daily activity pattern?
 3.1. Series plot of the 5-minute interval and the average number of steps taken, averaged across all days.
 ```{r plot_interval}
-plot(data3$interval,data3$mean.steps.interval, type="l", main="Average number of steps by interval", xlab="Interval", ylab="Steps (mean)", col="steelblue", lwd=2)
+plot(data3$interval,data3$mean.steps.interval, type="l", 
+     main="Average number of steps by interval", xlab="Interval", ylab="Steps (mean)", 
+     col="steelblue", lwd=2)
 abline(v=data3[data3[2]==max(data3$mean.steps.interval)][1], col="black", lty=2, lwd=1.5)
 ```
 
@@ -83,7 +85,7 @@ newdata <- data[,2:4]
 4.2. Histograms of the number of steps by day (with original and the new data set). 
 ```{r histogram_steps_by_day_new, fig.height=4, fig.width=10}
 par(mfrow=c(1,2))
-hist(data2$steps.day, main="Number of steps taken each day", xlab="Steps per day",col="steelblue")
+hist(data2$steps.day, main="Number of steps taken each day", xlab="Steps per day",col="grey")
 library(plyr)
 newdata2<-ddply(newdata, .(date), summarize,
                 new.steps.day=sum(steps.filled))
@@ -96,7 +98,7 @@ matrix(c(mean(data2$steps.day), mean(newdata2$new.steps.day),
          median(data2$steps.day), median(newdata2$new.steps.day)), nrow=2, ncol=2, 
        dimnames=list(c("original data", "filled data"),c("Mean", "Median")))
 ```
-The values have changed. The average number of steps a day in the two-month period with filled data set is now 21185.08, and the  median number of steps is 21641. The average and median values are now between 10180 and 33887 and all values are above 10000 steps a day, while  with the original data, many of the daily values were zero or below that value. Maybe now we have "inflated" the average daily number of steps... we should consider another ways of imputation of missing data.
+The values have changed. The average number of steps a day in the two-month period with filled data set is now 21185.08, and the  median number of steps is 21641. The average and median values are now between 10180 and 33887 and all values are above 10000 steps a day, while  with the original data, many of the daily values were zero or below that value. Maybe now we have *inflated* the average daily number of steps... we should consider another ways of imputation of missing data.
 
 
 
