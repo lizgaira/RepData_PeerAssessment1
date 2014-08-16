@@ -201,7 +201,17 @@ hr {
 <pre><code class="r">data &lt;- read.delim(&quot;activity.csv&quot;, sep=&quot;,&quot;, dec=&quot;,&quot;, header=TRUE)
 </code></pre>
 
+<pre><code>## Warning: no fue posible abrir el archivo &#39;activity.csv&#39;: No such file or
+## directory
+</code></pre>
+
+<pre><code>## Error: no se puede abrir la conexión
+</code></pre>
+
 <pre><code class="r">data$date&lt;-as.Date(data$date, &quot;%Y-%M-%d&quot;)
+</code></pre>
+
+<pre><code>## Error: do not know how to convert &#39;data$date&#39; to class &quot;Date&quot;
 </code></pre>
 
 <p>1.2. Summarise data by day: total number of steps a  day, average number of steps taken per day.</p>
@@ -212,11 +222,17 @@ data2&lt;-ddply(data, .(date), summarise,
              mean.steps.day=mean(steps, na.rm=TRUE))
 </code></pre>
 
+<pre><code>## Error: unique() puede ser aplicada solamente a vectores
+</code></pre>
+
 <p>1.3. Summarise data by interval: average number of steps taken per interval.</p>
 
 <pre><code class="r">library(plyr)
 data3&lt;-ddply(data, .(interval), summarise, 
              mean.steps.interval=mean(steps, na.rm=TRUE))
+</code></pre>
+
+<pre><code>## Error: objeto &#39;interval&#39; no encontrado
 </code></pre>
 
 <p>##2. What is mean total number of steps taken per day?</p>
@@ -226,7 +242,8 @@ data3&lt;-ddply(data, .(interval), summarise,
 <pre><code class="r">hist(data2$steps.day, main=&quot;Number of steps taken each day&quot;, xlab=&quot;Steps per day&quot;,col=&quot;steelblue&quot;)
 </code></pre>
 
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAEgCAMAAACuMBnmAAAAnFBMVEX9/v0AAAAAADkAAGUAOTkAOWUAOY8AZo8AZrU5AAA5ADk5AGU5OQA5OWU5OY85ZrU5j485j9pGgrRlAABlADllAGVlOQBlOY9lZgBlZjllZmVltbVltf2POQCPOTmPOWWPjzmPtY+P27WP29qP2/21ZgC1Zjm1tWW124+1/v3ajzna24/a/rXa/tra/v39tWX924/9/rX9/tr9/v1crSFTAAAANHRSTlP///////////////////////////////////////////////////////////////////8AS1ciZQAAAAlwSFlzAAALEgAACxIB0t1+/AAACilJREFUeJztnQt7okYUhotpU+32Zt3udlvc3kJb6TaI/P//1jlzIRAROTB8avK9z7NrMhwGfB0PEz3AZxWB8Nmld+C1QNEgKBoERYOgaBAUDYKiQVA0CIoGQdEgKBoERYOgaBAUDYKiQVA0CIoGQdEgKBoERYOgaBAUDYKiQVA0CIoGEV90uUnSqjps73adi08uaLFfJYuHVkuWnl2pEVJuhmzliOOdKzf3jyM6OmYW0WbfJorOkvRMQ/86r0R0sra7bHdb9rRIvtwmd7s8MSpM499JYvfe/O4G/+JDGL/SJCsnPkSGdiI9mYZlYw3pQ5y4xRLoQwrzv+lLRJuWtGOVejvysvhwu7ZZaKL+WdVR0viLiHZR9ukUZvdGMYfou5+c5IbogHdmNWb2h5ZW17R8apFXzfz4n7PYWkMi/GKJdKJDg4jOReWzVZZuH0NrCHdL651zUUdbkQ6zZxltMLOI/me1fib6bmfGXlpuZFzYJ7h42K98hjEt/vnvV3Ywmv9CGrBBgjQ017CS0npxCPE7sHM7UT1bpajfJo3kJuH7lfnZrG+jQqe2MferuKjlsMTXxSyid9niz7bopX8z+zegPCk/zKUljJLCGrcDp5aWuDe8NDTWkKY8WdeLBbeONInoxdfya3sjIeHWrSE8JIRnUcuQo13UYXv/abMcqWUe0eXmy2PR8g7VirZJOPFD/Fh0vVhwg97lgPAKtFc5Eh3CizpbtKK86BBV5YvfVyNT9Eyi5WDjj0by3muLbqYO4Un0ceqwZN58Yw2fOurF4dHJt6ljlzfSQFth3RrCfZZYP4vy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" alt="plot of chunk histogram_steps_day"/> </p>
+<pre><code>## Error: &#39;x&#39; must be numeric
+</code></pre>
 
 <p>2.2. Mean and median of the data.</p>
 
@@ -234,8 +251,12 @@ data3&lt;-ddply(data, .(interval), summarise,
                 dimnames=list(NULL,c(&quot;Mean&quot;, &quot;Median&quot;)))
 </code></pre>
 
-<pre><code>##       Mean Median
-## [1,] 18407  20525
+<pre><code>## Warning: argument is not numeric or logical: returning NA
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+</code></pre>
+
+<pre><code>##      Mean Median
+## [1,]   NA     NA
 </code></pre>
 
 <p>As we can see, the average number of total steps per day in the two-month period is 18407, and the  median number of steps is 20525.</p>
@@ -244,18 +265,23 @@ data3&lt;-ddply(data, .(interval), summarise,
 3.1. Series plot of the 5-minute interval and the average number of steps taken, averaged across all days.</p>
 
 <pre><code class="r">plot(data3$interval,data3$mean.steps.interval, type=&quot;l&quot;, main=&quot;Average number of steps by interval&quot;, xlab=&quot;Interval&quot;, ylab=&quot;Steps (mean)&quot;, col=&quot;steelblue&quot;, lwd=2)
-abline(v=data3[data3[2]==max(data3$mean.steps.interval)][1], col=&quot;black&quot;, lty=2, lwd=1.5)
 </code></pre>
 
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAnFBMVEX9/v0AAAAAADkAAGUAOTkAOWUAOY8AZo8AZrU5AAA5ADk5AGU5OQA5OWU5OY85ZrU5j9pGgrRlAABlADllAGVlOQBlOY9lZjllZmVlZrVltbVltf2POQCPOTmPOWWPZgCPj2WPtY+P29qP2/21ZgC1ZmW1tWW124+1/rW1/v3ajznatWXa/rXa/tra/v39tWX924/9/rX9/tr9/v0KX6R7AAAANHRSTlP///////////////////////////////////////////////////////////////////8AS1ciZQAAAAlwSFlzAAALEgAACxIB0t1+/AAAE1pJREFUeJztnQubo7YVhsNsOvV028kw2fRmJ+1m3Mu4m/GF///figQCAZIRSCDg+94nWRsBR7Je4AjG4O8yAsl3sRtA4kDxoFA8KBQPCsWDQvGgUDwoFA8KxYNC8aBQPCgUDwrFg0LxoFA8KBQPCsWDQvGgUDwoFA8KxYNC8aBQPCgUDwrFg7Io8bdDspss9Kf3/qUuT8nDW6PkuB8R+PraKOuN0VljBhYlPu/3qT6/m/hjsu8pGBG4Pwa8+FPyV9FJR7nfy39PSSJKboeHv+T74jmfEntkfmT49N/Xx49qviA38O9EbDhSxTWffU5+ny/4fhKLFHPFKq2YZcVJ8iLClouITTBfUxborShrKGdr1T5+yFrPeZSs0KgW7sQQtf6x+oTlR8IWn/fVf57yHjmL3r++5v1xTBJNybfXJCn6OH/5/ilfSM0v1pYTO128oux/qbUZU2ouinZ1ybWo6bdCWmMNsUQ5+0Or9vHjlHs9FhtSIV4L2orx+D/1CVUkbPGXp52Ulu8Vb9L+RcgVRXXyFz10ecoXOunzxZx8mRe5liZeLJvsRQ/LueKNIeblSe5zckPblyWFVVmgryFiJPtqtqq2CLxTTSnFF83pxNhl9SdUS2OLF/uM+D//50V2V7nLCm1qVxJ771n0nbZLF/PkMqJUE78rHYgIomfzoJ2Y4gizK2tX4uWOWK6gt0IU5Y2rZmcqx+fL3Q75IWlXrl5UKlth/CTqE6qPBC2+OlaL/vr2KlNmo7tEZr0nvvTdEi8KhoovqioPAV3x1exME5+dHr4+FVmnzPHvdvHqE6qPBC2+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" alt="plot of chunk plot_interval"/> </p>
+<pre><code>## Error: objeto &#39;data3&#39; no encontrado
+</code></pre>
+
+<pre><code class="r">abline(v=data3[data3[2]==max(data3$mean.steps.interval)][1], col=&quot;black&quot;, lty=2, lwd=1.5)
+</code></pre>
+
+<pre><code>## Error: objeto &#39;data3&#39; no encontrado
+</code></pre>
 
 <p>3.2. Across all the days in the data set, the 5-minute interval that contains the maximum number of steps is the 835 interval.</p>
 
 <pre><code class="r">data3[data3[2]==max(data3$mean.steps.interval),]
 </code></pre>
 
-<pre><code>##     interval mean.steps.interval
-## 104      835               206.2
+<pre><code>## Error: objeto &#39;data3&#39; no encontrado
 </code></pre>
 
 <p>##4. Imputing missing values</p>
@@ -265,7 +291,11 @@ abline(v=data3[data3[2]==max(data3$mean.steps.interval)][1], col=&quot;black&quo
 <pre><code class="r">dim(data[is.na(data$steps),])
 </code></pre>
 
-<pre><code>## [1] 2304    3
+<pre><code>## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo
+## &#39;NULL
+</code></pre>
+
+<pre><code>## [1]  0 10
 </code></pre>
 
 <p>There are 2304 rows with missing values in the original data set.
@@ -277,20 +307,500 @@ for (i in 1:nrow(data)){
            data$steps.filled[i]&lt;-data3[data3$interval==data$interval[i],&quot;mean.steps.interval&quot;],
            data$steps.filled[i])
 }
-newdata &lt;- data[,2:4]
+</code></pre>
+
+<pre><code>## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+## Warning: is.na() aplicado a un objeto que no es (lista o vector) de tipo &#39;NULL
+</code></pre>
+
+<pre><code class="r">newdata &lt;- data[,2:4]
 </code></pre>
 
 <p>4.2. Histograms of the number of steps by day (with original and the new data set). </p>
 
 <pre><code class="r">par(mfrow=c(1,2))
 hist(data2$steps.day, main=&quot;Number of steps taken each day&quot;, xlab=&quot;Steps per day&quot;,col=&quot;steelblue&quot;)
-library(plyr)
-newdata2&lt;-ddply(newdata, .(date), summarize,
-                new.steps.day=sum(steps.filled))
-hist(newdata2$new.steps.day, main=&quot;Number of steps taken each day (new data set)&quot;, xlab=&quot;Steps per day&quot;,col=&quot;steelblue&quot;)
 </code></pre>
 
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAAEgCAMAAACq87QqAAAAolBMVEX9/v0AAAAAADkAAGUAOTkAOWUAOY8AZo8AZrU5AAA5ADk5AGU5OQA5OWU5OY85ZmU5ZrU5j485j9pGgrRlAABlADllAGVlOQBlOY9lZgBlZjllZmVltbVltf2POQCPOTmPOWWPjzmPtY+P27WP29qP2/21ZgC1Zjm1tWW124+1/rW1/v3ajzna24/a/rXa/tra/v39tWX924/9/rX9/tr9/v08LmqoAAAANnRSTlP//////////////////////////////////////////////////////////////////////wChj04xAAAACXBIWXMAAAsSAAALEgHS3X78AAARKUlEQVR4nO2dC3vjxBWGkdMGe7ddqOsFCji7hY0LjQvx7f//tc5NsmRL4zlzsY5Ovvd5IFlpLppPb3RLPPrqBIAgvhp7AwDICYQGooDQQBQQGogCQgNRQGggCggNRAGhgSggNBAFhAaigNBAFBAaiAJCA1FAaCAKCA1EAaGBKCA0EAWEBqKA0EAUEBqIAkIDUUBoIAoIDUQBoYEoIDQQRX6hD6tqfTodnx5eelcPruiwX1Sz586SzfpmpVaRwyqklyuuN+6wenyNaIjKGwlte7F9g3RbuD0MVWK/WOrvigitNiZx32yq9Y0F/joTFPoNhHZYzQPb7LRweximxMZsRhGhq6UZpRmp3rRd9fVT9fCyrVS/auFvVWU2V/3bHpdmP9aHFr1IV65cEX3UqXRLasG8VUO3obffrtYFXZGd+r9qS+8btWTdU6XpR6fkipvaaqUq9fuiKaUX/qyTtaXMcHbVMntibya0bTMUU9q2Z0psVYla4qsW2tt4Oo+v1YIroXspIfTDv+x+ae2bGhezSX5jvunsCbtofl6id7T69k+7yZ0auoRb/drsm3qB3jdb82PbreKOEPXSurhd22zcvNk1nV50g5vQkyZCuwpN/RA+t9qs2zMlGiGvWvizs42n8/iaMJzQ9geiiNC/L5YX++bhRf1UrQ8r8wOnM5k97xfuJKuWuMj2C3OcUP+rzzKmkE1zfWrXMLmum9V1EbcBL3YjThdVds0RrHV+18X3C/W9qm9K1Y2ahdsmRF1qHnbuR2i9oRnjmjab9tTF72H1k/pZstpftdDZxvb4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" alt="plot of chunk histogram_steps_by_day_new"/> </p>
+<pre><code>## Error: &#39;x&#39; must be numeric
+</code></pre>
+
+<pre><code class="r">library(plyr)
+newdata2&lt;-ddply(newdata, .(date), summarize,
+                new.steps.day=sum(steps.filled))
+</code></pre>
+
+<pre><code>## Error: unique() puede ser aplicada solamente a vectores
+</code></pre>
+
+<pre><code class="r">hist(newdata2$new.steps.day, main=&quot;Number of steps taken each day (new data set)&quot;, xlab=&quot;Steps per day&quot;,col=&quot;steelblue&quot;)
+</code></pre>
+
+<pre><code>## Error: objeto &#39;newdata2&#39; no encontrado
+</code></pre>
 
 <p>4.3. Mean and median of the data (with the new data set).</p>
 
@@ -299,9 +809,10 @@ hist(newdata2$new.steps.day, main=&quot;Number of steps taken each day (new data
        dimnames=list(c(&quot;original data&quot;, &quot;filled data&quot;),c(&quot;Mean&quot;, &quot;Median&quot;)))
 </code></pre>
 
-<pre><code>##                Mean Median
-## original data 18407  20525
-## filled data   21185  21641
+<pre><code>## Warning: argument is not numeric or logical: returning NA
+</code></pre>
+
+<pre><code>## Error: objeto &#39;newdata2&#39; no encontrado
 </code></pre>
 
 <p>The values have changed. The average number of steps a day in the two-month period with filled data set is now 21185.08, and the  median number of steps is 21641. The average and median values are now between 10180 and 33887 and all values are above 10000 steps a day, while  with the original data, many of the daily values were zero or below that value. Maybe now we have &ldquo;inflated&rdquo; the average daily number of steps&hellip; we should consider another ways of imputation of missing data.</p>
@@ -312,10 +823,24 @@ hist(newdata2$new.steps.day, main=&quot;Number of steps taken each day (new data
 
 <pre><code class="r">library(plyr)
 newdata$day&lt;-as.factor(weekdays(newdata$date))
-newdata$type.of.day&lt;-newdata$day
+</code></pre>
+
+<pre><code>## Error: no applicable method for &#39;weekdays&#39; applied to an object of class
+## &quot;NULL&quot;
+</code></pre>
+
+<pre><code class="r">newdata$type.of.day&lt;-newdata$day
 newdata$type.of.day&lt;- as.factor(ifelse(newdata$day == &quot;Saturday&quot; | newdata$day == &quot;Sunday&quot;, 
                              &quot;weekend&quot;, &quot;weekday&quot;))
-newdata3&lt;-aggregate(steps.filled ~ interval + type.of.day , data = newdata, mean)
+</code></pre>
+
+<pre><code>## Error: replacement has 0 rows, data has 465
+</code></pre>
+
+<pre><code class="r">newdata3&lt;-aggregate(steps.filled ~ interval + type.of.day , data = newdata, mean)
+</code></pre>
+
+<pre><code>## Error: objeto &#39;steps.filled&#39; no encontrado
 </code></pre>
 
 <p>5.2. Panel plot comparing average number of steps on weekend days vs weekdays.</p>
@@ -325,7 +850,8 @@ xyplot(steps.filled~interval|type.of.day, data=newdata3, type=&quot;l&quot;, lay
        xlab=&quot;Interval&quot;, ylab=&quot;Steps per day&quot;, main=&quot;Number of steps on weekend days vs weekdays&quot;)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk plots_weekdays"/> </p>
+<pre><code>## Error: objeto &#39;newdata3&#39; no encontrado
+</code></pre>
 
 <p>Seems that patterns between weekend days and weekdays are not so different, with lower values till the interval 500 and above 2000, and higher number of steps between 500 and 2000. In fact, summary values are quite similar.</p>
 
@@ -335,9 +861,9 @@ xyplot(steps.filled~interval|type.of.day, data=newdata3, type=&quot;l&quot;, lay
                      c(&quot;Min.&quot;, &quot;1st Qu.&quot;, &quot;Median&quot;, &quot;Mean&quot;, &quot;3rd Qu.&quot;, &quot;Max&quot;)))
 </code></pre>
 
-<pre><code>##               Min. 1st Qu. Median Mean 3rd Qu. Max
-## original data    0       0      0 38.1    20.0 802
-## filled data      0       0      0 37.1    29.8 806
+<pre><code>##               Min. 1st Qu. Median Mean 3rd Qu. Max   
+## original data &quot;0&quot;  &quot;NULL&quot;  &quot;NULL&quot; &quot;0&quot;  &quot;NULL&quot;  &quot;NULL&quot;
+## filled data   &quot;0&quot;  &quot;NULL&quot;  &quot;NULL&quot; &quot;0&quot;  &quot;NULL&quot;  &quot;NULL&quot;
 </code></pre>
 
 </body>
