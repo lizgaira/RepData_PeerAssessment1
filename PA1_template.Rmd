@@ -36,7 +36,7 @@ data3<-ddply(data, .(interval), summarise,
 ##2. What is mean total number of steps taken per day?
 
 2.1. Histogram of the steps per day.
-```{r histogram_steps_day, fig.height=4, fig.width=5, background="white"}
+```{r histogram_steps_day, fig.height=4, fig.width=5}
 hist(data2$steps.day, main="Number of steps taken each day", xlab="Steps per day",col="steelblue")
 ```
 
@@ -51,7 +51,7 @@ As we can see, the average number of total steps per day in the two-month period
 
 ##3. What is the average daily activity pattern?
 3.1. Series plot of the 5-minute interval and the average number of steps taken, averaged across all days.
-```{r plot_interval, background="white"}
+```{r plot_interval}
 plot(data3$interval,data3$mean.steps.interval, type="l", main="Average number of steps by interval", xlab="Interval", ylab="Steps (mean)", col="steelblue", lwd=2)
 abline(v=data3[data3[2]==max(data3$mean.steps.interval)][1], col="black", lty=2, lwd=1.5)
 ```
@@ -81,7 +81,7 @@ newdata <- data[,2:4]
 ```
 
 4.2. Histograms of the number of steps by day (with original and the new data set). 
-```{r histogram_steps_by_day_new, fig.height=4, fig.width=10, background="white"}
+```{r histogram_steps_by_day_new, fig.height=4, fig.width=10}
 par(mfrow=c(1,2))
 hist(data2$steps.day, main="Number of steps taken each day", xlab="Steps per day",col="steelblue")
 library(plyr)
@@ -116,7 +116,7 @@ newdata3<-aggregate(steps.filled ~ interval + type.of.day , data = newdata, mean
 ```
 
 5.2. Panel plot comparing average number of steps on weekend days vs weekdays.
-```{r plots_weekdays, background="white"}
+```{r plots_weekdays}
 library(lattice)
 xyplot(steps.filled~interval|type.of.day, data=newdata3, type="l", layout=c(1,2),
        xlab="Interval", ylab="Steps per day", main="Number of steps on weekend days vs weekdays")
